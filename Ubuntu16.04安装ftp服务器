@@ -1,0 +1,86 @@
+这里是正题。
+
+sudo apt-get update
+sudo apt-get install vsftpd 
+
+执行完该步骤，vsftpd服务已经安装
+
+1. 修改ftp的配置文件 /etc/vsftpd.conf
+
+(a)向文件中添加如下内容：
+复制代码
+
+userlist_deny=NO 
+userlist_enable=YES 
+#允许登录的用户 
+userlist_file=/etc/allowed_users 
+seccomp_sandbox=NO 
+local_enable=YES 
+#设置文件上传 
+write_enable=YES 
+#使用utf8
+utf8_filesystem=YES
+
+复制代码
+
+ 
+
+使文件中的"local_enable=YES"保存。
+
+(b)新建/etc/allowed_users文件
+
+sudo gedit /etc/allowed_users
+
+假设我只想让xuanxufeng和root访问ftp服务器，那么输入xuanxufeng,root-->保存OK！以后还有其它用户使用ftp时直接添加用户名就可以了！
+
+(c)使用gedit查看/etc/ftpusers文件中的内容
+
+sudo gedit /etc/ftpusers
+
+打开这个文件后，看一看有没有uftp这个用户名，如果没有，就直接退出。如果有就删除uftp,因为这个文件中记录的是不能访问FTP服务器的用户清单。
+
+重启vsftp服务器。
+
+2. 启动停止重启服务
+
+sudo /etc/init.d/vsftpd start
+sudo /etc/init.d/vsftpd stop
+sudo /etc/init.d/vsftpd restart
+
+3. 访问ftp服务器
+
+sudo ftp 127.0.0.1
+
+浏览器访问 
+
+ftp://127.0.0.1 
+
+或者 
+
+ftp://localhost
+
+远程访问时使用实际ip:  ftp://your_ip 
+
+4. windows下简单有效地访问ftp服务器
+
+我们有三种方式可以访问（假设服务器ip地址是：172.16.23.33）
+
+（1）浏览器
+
+在浏览器中输入ftp://172.16.23.33,运行结果如下：
+
+（2）使用文件传输软件（比如8uftp):
+
+按道理讲，访问权限仅限于xuanxufeng这个用户的主目录，但是这个软件真特么的强大，它竟然能越过我的主目录，访问整个系统！好怕怕=。=
+
+另外，这里有乱码的问题，由于本篇文章的重点不在这，我也懒得管这个了，有兴趣的读者可以自己去试着去解决一下。
+
+(3)最后，我来介绍一个最方便的方法~ windows其实还挺方便的，也不是一无是处哈~
+
+双击“计算机”，在地址栏输入：ftp://172.16.23.33/，然而并没有什么卵用....
+
+不要着急嘛~ 右击一下，选择登陆~~~
+
+ 
+
+现在是不是进来了呢？这个其实就对应于linux下xuanxufeng这个用户的主目录了！剩下的文件上传和下载就和windows下文件操作一样了，是不是很方便！！！
