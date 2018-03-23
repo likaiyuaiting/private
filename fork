@@ -1,0 +1,23 @@
+int main(int arg, char *args[])
+{
+	close(STDOUT_FILENO);//关闭标准输出
+	open("/dev/pts/2", O_WRONLY);//打开"/dev/pts/2"，做为标准输出
+	pid_t pid = fork();//调用fork产生一个子进行
+	int status;
+	if (pid == -1)
+	{
+		printf("fork failed\n");
+		return 0;
+	}
+	if (pid == 0)//子进程调用execve，执行ls -l命令
+	{
+		char *args[] = { "/bin/ls", "-l", NULL };
+		execve("/bin/ls", args, NULL);
+
+	}
+	else
+	{
+
+		return 0;//父进程退出
+	}
+}
