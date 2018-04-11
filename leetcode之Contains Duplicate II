@@ -1,0 +1,16 @@
+这道题的直观想法是用两个for循环，但这样做会超时。
+
+这个时候，为了减少时间复杂度，一般使用哈希表来存储遍历过的变量及其index。哈希表的键key存储的是已经遍历过的数组的值，哈希表的值value存储的是该数组值的index，这样就方便将当前指向的数组值及标号与哈希表的值与标号进行比较了C++代码：
+
+class Solution {
+public:
+    bool containsNearbyDuplicate(vector<int>& nums, int k) {
+        unordered_map<int, int> mymap;
+        for(int i=0;i<nums.size();i++){
+            if(mymap.find(nums[i])!=mymap.end()&&i-mymap[nums[i]]<=k)
+                return true;
+            mymap[nums[i]]=i;
+        }
+        return false;
+    }
+};
