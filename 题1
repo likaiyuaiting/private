@@ -1,0 +1,19 @@
+【解题分析】对于数组中某个下标i，如何判断它是否属于符合条件的两个数字之一？最直观的就是再次扫描数字，判断target-array【i】是否存在于数组中。这样做时间复杂度O(n^2)，效率不高，原因是没有保存之前的处理结果，每次都在做重复的工作。尽管效率不高，但通过最直观的方法，发现处理当前节点需要依赖于之前的部分结果，如何保存之前的处理结果？可以使用哈希表。
+既然需要回答“target-array【i】是否存在于数组中”，那不妨把值作为键，通过询问哈希表是否含有所需要的键来得到回答。最终根据题目，需要返回下标，把下标作为哈希表的值也非常自然了。
+【复杂度分析】：先对数组每个元素进行上述哈希处理，再从头至尾扫描数组，判断对应的另一个数是否存在于数组中，时间复杂度O(n+n)。事实上，利用动态规划思想，仅仅利用已经处理的部分解：哈希表只存储前驱结点的信息。对于当前节点，判断前驱中是否含有对应值。当处理完当前节点，把当前节点加入哈希表，作为已经处理的部分解。这样时间复杂度可以进一步减小为O(n)。
+参考代码：
+vector<int> addsToTarget(vector<int> &numbers, int target)
+{
+    unordered_map<int, int> numToIndex;
+    vector<int> vi(2);
+    for(auto it=numbers.begin();it!=numbers.end();it++)
+    {
+        if(numToIndex.count(target-*it))
+        {
+            vi[0]=numToIndex[target-*it]+1;
+            vi[1]=(int)(it-numbers.begin())+1;
+            return vi;
+        }
+        numToIndex[target-*it]=(int)(it-numbers.begin());
+    }
+}
