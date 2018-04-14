@@ -1,0 +1,4 @@
+
+（1）继承Thread类 （java.lang.Thread）
+（2）实现Runnable接口 (java.lang.Runnable)
+注：这两种方式的关系：从jdk源码可以看出，Thread类还是实现了Runnable接口。
