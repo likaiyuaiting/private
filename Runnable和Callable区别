@@ -1,0 +1,2 @@
+Runnable是在java.lang下，而Callable是在java.util.concurrent下。
+Runnable中run方法没有返回值，而Callable中call方法有返回值，并且是泛型。和Future、FutureTask配合获取异步执行的结果。 
