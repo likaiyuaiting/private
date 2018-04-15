@@ -1,0 +1,84 @@
+int  main()  
+{  
+    //初始定义   
+    char map[N][M]={' '},ch;  
+    int a,b,c,d;  
+    int m,n,i;                   
+       
+    srand(time(NULL));  
+    a = (rand() % 25) + 1;  
+    b = (rand() % 50) + 1;  
+    init_snake(map,a,b);  
+      
+    srand(time(NULL));  
+    c=((rand()+10) % 25) + 1;  
+    d=((rand()+10) % 50) + 1;  
+    while(map[c][d]=='A')  
+    {  
+        srand(time(NULL));  
+        c=((rand()+15) % 25) + 1;  
+        d=((rand()+15) % 50) + 1;  
+    }  
+    ///初始函数及数据   
+    init_map(map);  
+    init_food(map,c,d);  
+    food.iseaten = 0;  
+    snake.exist = 1;  
+      
+    //开始主循环   
+    while(CIRCLE)  
+    {  
+        //show_map(map);  
+        snake_move(map,snake.direction);  
+        reload(map);  
+          
+        if(food.iseaten == 1)  
+        {  
+            food.iseaten = 0;  
+            srand(time(NULL));  
+            c=((rand()+10) % 25) + 1;  
+            d=((rand()+10) % 50) + 1;  
+            while(map[c][d] == 'A')  
+            {  
+                srand(time(NULL));  
+                c=((rand()+15) % 25) + 1;  
+                d=((rand()+15) % 50) + 1;  
+            }  
+            init_food(map,c,d);  
+        }  
+  
+        if(kbhit())  
+        {  
+            ch = getch();  
+            if(ch == 'w' && snake.direction != 's') snake.direction = ch;  
+            if(ch == 's' && snake.direction != 'w') snake.direction = ch;  
+            if(ch == 'a' && snake.direction != 'd') snake.direction = ch;  
+            if(ch == 'd' && snake.direction != 'a') snake.direction = ch;  
+            snake_move(map,ch);  
+            reload(map);  
+        }  
+          
+        Sleep(50);  
+        m = snake.body[0].x;  
+        n = snake.body[0].y;  
+          
+        if(m == c && n == d && food.iseaten==0)  
+        {                 
+            snake.longth++;  
+            food.iseaten = 1;  
+            for(i=snake.longth-1;i>0;i--)  
+            {  
+                snake.body[i].x = snake.body[i-1].x;  
+                snake.body[i].y = snake.body[i-1].y;  
+            }  
+            if(snake.direction == 's') snake.body[0].x++;  
+            if(snake.direction == 'w') snake.body[0].x--;  
+            if(snake.direction == 'a') snake.body[0].y--;  
+            if(snake.direction == 'd') snake.body[0].y++;  
+            reload(map);  
+        }  
+          
+        system("cls");  
+    }  
+    return 0;  
+} 
