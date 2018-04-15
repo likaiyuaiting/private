@@ -1,0 +1,30 @@
+void snake_move(char map[][M],char ch)  
+{  
+    int i=snake.longth-1,m,n;  
+    m = snake.body[i].x;  
+    n = snake.body[i].y;  
+    for(i;i>0;i--)  
+    {  
+        snake.body[i].x = snake.body[i-1].x;  
+        snake.body[i].y = snake.body[i-1].y;  
+    }  
+    map[m][n] = ' ';  
+    if(ch == 'd') snake.body[0].y++;  
+    if(ch == 'w') snake.body[0].x--;  
+    if(ch == 'a') snake.body[0].y--;  
+    if(ch == 's') snake.body[0].x++;  
+}  
+  
+void reload(char map[][M])  
+{  
+    int i,a1,b1;  
+    for(i=0;i<=snake.longth-1;i++)  
+    {     
+        a1=snake.body[i].x;  
+        b1=snake.body[i].y;  
+        map[a1][b1]='A';  
+     }  
+     system("cls");  
+     show_map(map);  
+}  
+  
