@@ -1,0 +1,28 @@
+  
+void init_snake(char map[][M],int a,int b)  
+{  
+    map[a][b] = 'A';  
+    snake.body[0].x = a;  
+    snake.body[0].y = b;  
+    snake.longth = 1;  
+    snake.direction = 'd';  
+}  
+  
+void init_food(char map[][M],int c,int d)  
+{  
+    map[c][d] = 'O';  
+}  
+  
+void show_map(char map[][M])  
+{  
+    int i,j;  
+    for(i=0;i<N;i++)  
+    {  
+        for(j=0;j<M;j++)  
+        {  
+            printf("%c",map[i][j]);  
+            if(j==M-1) printf("\n");  
+        }  
+    }  
+}  
+  
