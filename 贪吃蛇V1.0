@@ -1,0 +1,33 @@
+#include<stdio.h>  
+#include<windows.h>  
+#include<stdlib.h>  
+#include<conio.h>  
+#include<time.h>  
+  
+#define N 27 //边长 2个单位存放边界   
+#define M 52  
+#define CIRCLE 1 //主循环   
+#define L 1250   
+  
+void init_map(char map[][M]);  
+void init_snake(char map[][M]);  
+void init_food(char map[][M],int a,int b);  
+void show_map(char map[][M]);  
+void snake_move(char map[][M],char c);  
+void reload(char map[][M]);  
+  
+struct Food  
+{  
+    int x;  
+    int y;  
+    int iseaten;  
+}food;  
+  
+struct Snake  
+{  
+    struct Food body[L];  
+    int longth;  
+    int exist;  
+    char direction;  
+}snake;  
+  
